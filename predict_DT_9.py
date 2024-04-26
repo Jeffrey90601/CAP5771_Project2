@@ -37,6 +37,7 @@ print('Test Set - Number of instances: ' + str(len(df_test)))
 # DecisionTreeClassifier with Validation Set
 nleafnodes = [2, 4, 10, 20, 50, 100, 200, 400, 600, None]
 validation_accuracy = []
+validation_precision = []
 validation_f1_score = []
 
 for nleaves in nleafnodes:
@@ -45,18 +46,23 @@ for nleaves in nleafnodes:
     predictions = clf.predict(x_validation)
     accuracy = metrics.accuracy_score(y_validation, predictions)
     f1_score = metrics.f1_score(y_validation, predictions)
+    precision = metrics.precision_score(y_validation, predictions, average='binary')
+
 
     validation_accuracy.append(accuracy)
+    validation_precision.append(precision)
     validation_f1_score.append(f1_score)
 
-print(validation_accuracy)
-print(validation_f1_score)
+print("Validation Accuracy: ", str(max(validation_accuracy)))
+print("Validation Precision: ", str(max(validation_precision)))
+print("Validation F1 Score: ", str(max(validation_f1_score)))
 
 # DecisionTreeClassifier with Test Set
 x_train, x_test, y_train, y_test = model_selection.train_test_split(x_train, y_train, test_size=0.2, random_state=9)
 test_accuracy = []
 test_recall = []
 test_f1_score = []
+test_precision = []
 
 for nleaves in nleafnodes:
     clf = DecisionTreeClassifier(max_leaf_nodes=nleaves)
@@ -65,14 +71,19 @@ for nleaves in nleafnodes:
     accuracy = metrics.accuracy_score(y_test, predictions)
     recall = metrics.recall_score(y_test, predictions)
     f1_score = metrics.f1_score(y_test, predictions)
+    test_precision = metrics.precision_score(y_test, predictions, average='binary')
+
 
     test_accuracy.append(accuracy)
     test_recall.append(recall)
     test_f1_score.append(f1_score)
 
-print(test_accuracy)
-print(test_recall)
-print(test_f1_score)
+    
+print('\n')
+print("Test Accuracy:", str(max(test_accuracy)))
+print("Test Recall:", str(max(test_recall)))
+print("Test Precision:", test_precision)
+print("Test F1-Score:", str(max(test_f1_score)))
 
 # Plot #1
 plt.plot(nleafnodes, validation_accuracy, label='Training')

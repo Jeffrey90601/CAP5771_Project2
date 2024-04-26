@@ -41,6 +41,7 @@ n_base_classifiers = [2, 5, 10, 15, 20]
 random_state = 9
 
 validation_accuracy = []
+validation_precision = []
 validation_f1_score = []
 
 for nleafnode in max_leaf_nodes:
@@ -50,19 +51,23 @@ for nleafnode in max_leaf_nodes:
         clf = clf.fit(x_train, y_train)
         predictions = clf.predict(x_validation)
         accuracy = metrics.accuracy_score(y_validation, predictions)
+        precision = metrics.precision_score(y_validation, predictions, average='binary')
         f1_score = metrics.f1_score(y_validation, predictions)
 
         validation_accuracy.append(accuracy)
+        validation_precision.append(precision)
         validation_f1_score.append(f1_score)
 
-print(validation_accuracy)
-print(validation_f1_score)
+print("Validation Accuracy: ", str(max(validation_accuracy)))
+print("Validation Precision: ", str(max(validation_precision)))
+print("Validation F1 Score: ", str(max(validation_f1_score)))
 
 # BaggingClassifier with Test Set
 x_train, x_test, y_train, y_test = model_selection.train_test_split(x_train, y_train, test_size=0.2, random_state=9)
 test_accuracy = []
 test_recall = []
 test_f1_score = []
+test_precision = []
 
 max_20_accuracy = []
 max_400_accuracy = []
@@ -76,6 +81,7 @@ for nleafnode in max_leaf_nodes:
         accuracy = metrics.accuracy_score(y_test, predictions)
         recall = metrics.recall_score(y_test, predictions)
         f1_score = metrics.f1_score(y_test, predictions)
+        test_precision = metrics.precision_score(y_test, predictions, average='binary')
 
         test_accuracy.append(accuracy)
         test_recall.append(recall)
@@ -87,9 +93,10 @@ for nleafnode in max_leaf_nodes:
             max_400_accuracy.append(accuracy)
 
 print('\n')
-print(test_accuracy)
-print(test_recall)
-print(test_f1_score)
+print("Test Accuracy:", str(max(test_accuracy)))
+print("Test Recall:", str(max(test_recall)))
+print("Test Precision:", test_precision)
+print("Test F1-Score:", str(max(test_f1_score)))
 
 # Plot #2
 plt.plot(n_base_classifiers, max_20_accuracy, label='Max_20_Accuracy')

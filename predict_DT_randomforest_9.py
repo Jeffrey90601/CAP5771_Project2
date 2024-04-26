@@ -55,6 +55,7 @@ for max_features in max_features_options:
             f1_score = metrics.f1_score(y_validation, predictions, average='binary')
             results.append((max_features, max_leaf_nodes, n_estimators, accuracy, f1_score))
 
+
 # Convert results to DataFrame for analysis
 results_df = pd.DataFrame(results, columns=['max_features', 'max_leaf_nodes', 'n_estimators', 'accuracy', 'f1_score'])
 
@@ -79,9 +80,9 @@ test_recall = metrics.recall_score(y_test, test_predictions, average='binary')
 test_precision = metrics.precision_score(y_test, test_predictions, average='binary')
 
 print("Test Accuracy:", test_accuracy)
-print("Test F1-Score:", test_f1_score)
 print("Test Recall:", test_recall)
 print("Test Precision:", test_precision)
+print("Test F1-Score:", test_f1_score)
 
 # Calculate ensemble accuracy (accuracy of the best model on the validation set)
 ensemble_accuracy = best_model['accuracy']

@@ -53,11 +53,12 @@ for max_features in max_features_options:
             predictions = rf.predict(x_validation)
             accuracy = metrics.accuracy_score(y_validation, predictions)
             f1_score = metrics.f1_score(y_validation, predictions, average='binary')
-            results.append((max_features, max_leaf_nodes, n_estimators, accuracy, f1_score))
+            precision = metrics.precision_score(y_validation, predictions, average='binary')
+            results.append((max_features, max_leaf_nodes, n_estimators, accuracy, f1_score, precision))
 
 
 # Convert results to DataFrame for analysis
-results_df = pd.DataFrame(results, columns=['max_features', 'max_leaf_nodes', 'n_estimators', 'accuracy', 'f1_score'])
+results_df = pd.DataFrame(results, columns=['max_features', 'max_leaf_nodes', 'n_estimators', 'accuracy', 'f1_score', 'precision'])
 
 # Model Selection
 # Find the best model based on validation accuracy

@@ -19,9 +19,9 @@ x_train, x_validation, y_train, y_validation = model_selection.train_test_split(
     x_train, y_train, test_size=0.2, random_state=9) 
 
 # Print out statistics
-print(f'Train instances: {x_train.shape[0]}, Features: {x_train.shape[1]}')
-print(f'Validation instances: {x_validation.shape[0]}, Features: {x_validation.shape[1]}')
-print(f'Test instances: {x_test.shape[0]}, Features: {x_test.shape[1]}')
+print(f'Train instances: {x_train.shape[0]}, Features: {x_train.shape[1]+1}')
+print(f'Validation instances: {x_validation.shape[0]}, Features: {x_validation.shape[1]+1}')
+print(f'Test instances: {x_test.shape[0]}, Features: {x_test.shape[1]+1}')
 print('Class distribution in Train set:', y_train.value_counts())
 print('Class distribution in Validation set:', y_validation.value_counts())
 print('Class distribution in Test set:', y_test.value_counts())

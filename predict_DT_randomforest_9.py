@@ -63,6 +63,9 @@ results_df = pd.DataFrame(results, columns=['max_features', 'max_leaf_nodes', 'n
 # Find the best model based on validation accuracy
 best_model = results_df.sort_values(by='accuracy', ascending=False).iloc[0]
 
+print("Best Model: ", best_model)
+print("\n")
+
 # Use the best model found based on validation accuracy to predict on the test set
 rf_best = RandomForestClassifier(
     n_estimators=int(best_model['n_estimators']),
